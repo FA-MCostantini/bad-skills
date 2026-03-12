@@ -1,2 +1,8 @@
 # Claude Code
 .claude/
+
+#Serena
+.serena/
+
+# PhpStorm
+.idea/

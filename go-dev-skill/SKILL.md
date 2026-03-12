@@ -1,5 +1,5 @@
 ---
-name: go-senior-dev
+name: go-dev-skill
 description: >
   Senior Software Architect and Lead Developer for Go 1.22+ production systems.
   Use when working with Go code, microservices, concurrent systems, gRPC, CLI tools,
@@ -23,7 +23,7 @@ metadata:
   scope: implementation
   output-format: code
   autonomy: true
-  related-skills: php-senior-dev, ears-doc
+  related-skills: project-dev-skill, ears-doc, postgresql16-dev-skill
 ---
 
 # Go Senior Developer
