@@ -7,6 +7,7 @@
     "target": "ES2022",
     "module": "ESNext",
     "lib": ["ES2022", "DOM"],
+    "moduleResolution": "bundler",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -19,12 +20,20 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   }
 }
 ```
+
+### Why These Extra Options Matter
+
+- **`moduleResolution: "bundler"`** — Matches how Vite/esbuild resolve modules; avoids spurious errors with `.ts` extension imports and package `exports` fields.
+- **`exactOptionalPropertyTypes`** — Prevents assigning `undefined` to an optional property that doesn't include `undefined` in its type. Makes `{ foo?: string }` mean the key either has a `string` value or is absent, not `string | undefined`.
+- **`noUncheckedIndexedAccess`** — Index signatures (arrays, `Record<string, T>`) return `T | undefined` instead of `T`, forcing you to handle the "not found" case explicitly.
 
 ## Type Guards & Narrowing
 
@@ -261,32 +270,28 @@ class AsyncQueue<T> {
 
 ## Decorators
 
-### Method Decorators
+> **Note on decorator APIs:** TypeScript 5.x supports two decorator APIs.
+> - **Legacy (experimentalDecorators)** — the original `target/propertyKey/descriptor` API used by many frameworks. Still works but is not standard.
+> - **TC39 Stage 3 (context-based)** — the standardised API (enabled by default in TS 5.0 without `experimentalDecorators`). Uses a `context` object instead of a descriptor.
+>
+> Prefer the Stage 3 API for new code. Legacy examples are shown below for compatibility with older frameworks (e.g., NestJS, TypeORM).
+
+### Method Decorators — TC39 Stage 3 (preferred)
 ```typescript
 function throttle(delay: number) {
-  return function (
-    target: any,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-  ): PropertyDescriptor {
-    let timeout: NodeJS.Timeout | null = null;
-    const original = descriptor.value;
-    
-    descriptor.value = function (...args: any[]) {
-      if (timeout) return;
-      
-      timeout = setTimeout(() => {
-        timeout = null;
-      }, delay);
-      
-      return original.apply(this, args);
-    };
-    
-    return descriptor;
+  return function <T extends (...args: unknown[]) => unknown>(
+    fn: T,
+    _context: ClassMethodDecoratorContext
+  ): T {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    return function (this: unknown, ...args: Parameters<T>): ReturnType<T> {
+      if (timeout) return undefined as ReturnType<T>;
+      timeout = setTimeout(() => { timeout = null; }, delay);
+      return fn.apply(this, args) as ReturnType<T>;
+    } as T;
   };
 }
 
-// Usage
 class SearchComponent {
   @throttle(300)
   async search(query: string): Promise<void> {
@@ -295,30 +300,53 @@ class SearchComponent {
 }
 ```
 
-### Property Decorators
+### Method Decorators — Legacy (experimentalDecorators)
 ```typescript
-function validate(validator: (value: any) => boolean) {
-  return function (target: any, propertyKey: string) {
-    let value: any;
-    
-    const getter = () => value;
-    const setter = (newVal: any) => {
-      if (!validator(newVal)) {
-        throw new Error(`Invalid value for ${propertyKey}`);
-      }
-      value = newVal;
+function throttleLegacy(delay: number) {
+  return function (
+    target: object,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ): PropertyDescriptor {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    const original = descriptor.value;
+
+    descriptor.value = function (...args: unknown[]) {
+      if (timeout) return;
+      timeout = setTimeout(() => { timeout = null; }, delay);
+      return original.apply(this, args);
     };
-    
-    Object.defineProperty(target, propertyKey, {
-      get: getter,
-      set: setter,
-      enumerable: true,
-      configurable: true,
+
+    return descriptor;
+  };
+}
+```
+
+### Property Decorators — TC39 Stage 3 (preferred)
+```typescript
+function validate(validator: (value: unknown) => boolean) {
+  return function <T>(
+    _target: undefined,
+    context: ClassFieldDecoratorContext
+  ) {
+    context.addInitializer(function (this: Record<string, unknown>) {
+      const key = context.name as string;
+      let _value: unknown = this[key];
+      Object.defineProperty(this, key, {
+        get() { return _value; },
+        set(newVal: unknown) {
+          if (!validator(newVal)) {
+            throw new Error(`Invalid value for ${key}`);
+          }
+          _value = newVal;
+        },
+        enumerable: true,
+        configurable: true,
+      });
     });
   };
 }
 
-// Usage
 class User {
   @validate((v) => typeof v === 'string' && v.includes('@'))
   email!: string;
@@ -448,9 +476,11 @@ const config = new LazyValue(async () => {
 
 ### Type-Safe Mocks
 ```typescript
+import { vi, type Mock } from 'vitest';
+
 type DeepPartialMock<T> = {
   [P in keyof T]?: T[P] extends (...args: any[]) => any
-    ? jest.Mock<ReturnType<T[P]>, Parameters<T[P]>>
+    ? Mock<Parameters<T[P]>, ReturnType<T[P]>>
     : T[P] extends object
     ? DeepPartialMock<T[P]>
     : T[P];
@@ -460,10 +490,106 @@ function createMock<T>(partial: DeepPartialMock<T> = {}): T {
   return partial as T;
 }
 
-// Usage in tests
+// Usage in tests (Vitest — not jest.fn / jest.Mock)
 const mockUser = createMock<User>({
   id: 1,
   email: 'test@example.com',
-  save: jest.fn().mockResolvedValue(true),
+  save: vi.fn().mockResolvedValue(true),
 });
+```
+
+## Satisfies Operator
+
+Use `satisfies` to validate a value against a type without widening the inferred type. This preserves narrow literal types while still catching shape errors.
+
+```typescript
+type ColorConfig = Record<string, { hex: string }>;
+
+// Type-safe without widening
+const colors = {
+  primary: { hex: '#007bff' },
+  danger: { hex: '#dc3545' },
+} satisfies ColorConfig;
+
+// colors.primary is still narrowly typed — wouldn't be the case with `as ColorConfig`
+colors.primary.hex; // OK — string, not widened to unknown
+// colors.missing;  // Error: property does not exist
+```
+
+## Const Type Parameters (TypeScript 5.0+)
+
+`const` on a type parameter infers the narrowest possible literal type, equivalent to `as const` on the call site.
+
+```typescript
+function literal<const T>(value: T): T { return value; }
+
+const result = literal({ status: 'active', count: 42 });
+// type is { readonly status: "active"; readonly count: 42 }
+// Without `const`: { status: string; count: number }
+```
+
+## Using Declarations (Symbol.dispose — TypeScript 5.2+)
+
+The `using` keyword calls `[Symbol.dispose]()` at the end of the enclosing block, replacing fragile try/finally teardown.
+
+```typescript
+function connectToDb(): Disposable {
+  const conn = createConnection();
+  return {
+    [Symbol.dispose]() { conn.close(); }
+  };
+}
+
+{
+  using db = connectToDb();
+  // db.close() called automatically when the block exits (including on throw)
+}
+
+// Async variant
+async function openFile(path: string): Promise<AsyncDisposable> {
+  const handle = await fs.open(path);
+  return {
+    async [Symbol.asyncDispose]() { await handle.close(); }
+  };
+}
+
+{
+  await using file = await openFile('data.csv');
+}
+```
+
+## Template Literal Types
+
+Combine string literal types to describe patterns at the type level.
+
+```typescript
+type EventName<T extends string> = `on${Capitalize<T>}`;
+type ClickEvent = EventName<'click'>; // 'onClick'
+
+type CssVar<T extends string> = `--${T}`;
+type ThemeVars = CssVar<'primary' | 'secondary'>; // '--primary' | '--secondary'
+
+// Inferring from template literals
+type ExtractRoute<T extends string> =
+  T extends `/api/${infer Route}` ? Route : never;
+type UserRoute = ExtractRoute<'/api/users'>; // 'users'
+```
+
+## Mapped Types with `as` Clause
+
+The `as` clause in a mapped type lets you rename or filter keys.
+
+```typescript
+type Getters<T> = {
+  [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];
+};
+
+interface User { name: string; age: number; }
+type UserGetters = Getters<User>;
+// { getName: () => string; getAge: () => number; }
+
+// Filter out keys with `never`
+type NonNullableProps<T> = {
+  [K in keyof T as T[K] extends null | undefined ? never : K]: T[K];
+};
 ```

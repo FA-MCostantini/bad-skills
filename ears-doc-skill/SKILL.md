@@ -1,5 +1,5 @@
 ---
-name: ears-doc
+name: ears-doc-skill
 description: >
   Requirements Engineer specializing in EARS (Easy Approach to Requirements Syntax).
   Use when writing, reviewing, or refactoring software specifications, functional
@@ -23,7 +23,7 @@ metadata:
   scope: documentation
   output-format: markdown
   autonomy: true
-  related-skills: php-senior-dev, go-senior-dev
+  related-skills: coding-standards-skill, bad-model-skill
 ---
 
 # EARS Requirements Engineer

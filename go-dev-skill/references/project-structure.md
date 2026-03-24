@@ -40,12 +40,12 @@ myproject/
 
 module github.com/user/myproject
 
-go 1.21
+go 1.22
 
 require (
     github.com/gin-gonic/gin v1.9.1
-    github.com/lib/pq v1.10.9
-    go.uber.org/zap v1.26.0
+    github.com/jackc/pgx/v5 v5.5.4
+    // log/slog is stdlib in Go 1.21+ — no external logging dependency needed
 )
 
 require (
@@ -207,7 +207,7 @@ use (
 ## Build Tags and Constraints
 
 ```go
-// +build integration
+//go:build integration
 // integration_test.go
 
 package myapp
@@ -320,7 +320,7 @@ help:
 
 ```dockerfile
 # Build stage
-FROM golang:1.21-alpine AS builder
+FROM golang:1.22-alpine AS builder
 
 WORKDIR /app
 

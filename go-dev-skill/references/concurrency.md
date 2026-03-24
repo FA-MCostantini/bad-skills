@@ -317,6 +317,156 @@ func pipeline(ctx context.Context, input <-chan int) <-chan int {
 }
 ```
 
+## errgroup (golang.org/x/sync/errgroup)
+
+`errgroup` coordinates a group of goroutines and collects the first non-nil error.
+
+```go
+import "golang.org/x/sync/errgroup"
+
+// Basic usage: g.Go() launches goroutines, g.Wait() blocks until all finish.
+func fetchAll(urls []string) error {
+    var g errgroup.Group
+    for _, url := range urls {
+        url := url // captured for Go < 1.22; safe to omit in Go 1.22+
+        g.Go(func() error {
+            return fetch(url)
+        })
+    }
+    return g.Wait() // returns the first non-nil error
+}
+
+// errgroup.WithContext — cancel sibling goroutines on first error
+func processWithContext(ctx context.Context, items []string) error {
+    g, ctx := errgroup.WithContext(ctx)
+    results := make([]string, len(items))
+
+    for i, item := range items {
+        i, item := i, item
+        g.Go(func() error {
+            result, err := processItem(ctx, item)
+            if err != nil {
+                return err // ctx is cancelled for all siblings
+            }
+            results[i] = result
+            return nil
+        })
+    }
+
+    if err := g.Wait(); err != nil {
+        return err
+    }
+    // use results
+    return nil
+}
+
+// g.SetLimit(n) — cap the number of goroutines running concurrently
+func processLimited(ctx context.Context, items []string) error {
+    g, ctx := errgroup.WithContext(ctx)
+    g.SetLimit(10) // at most 10 goroutines at a time
+
+    for _, item := range items {
+        item := item
+        g.Go(func() error {
+            return processItem(ctx, item)
+        })
+    }
+    return g.Wait()
+}
+```
+
+## atomic Types (sync/atomic)
+
+Go 1.19+ exposes typed atomic wrappers that avoid unsafe pointer casts.
+
+```go
+import "sync/atomic"
+
+// atomic.Int64 — lock-free integer counter
+var hits atomic.Int64
+
+hits.Add(1)
+hits.Store(0)
+current := hits.Load()
+fmt.Println(current)
+
+// atomic.Bool — flag without a mutex
+var ready atomic.Bool
+
+ready.Store(true)
+if ready.Load() {
+    // ...
+}
+
+// atomic.Pointer[T] — lock-free pointer swap
+type Config struct{ MaxConns int }
+
+var current atomic.Pointer[Config]
+current.Store(&Config{MaxConns: 10})
+
+// Hot-reload config without locking readers
+cfg := current.Load()
+fmt.Println(cfg.MaxConns)
+
+// Swap atomically
+old := current.Swap(&Config{MaxConns: 20})
+_ = old
+```
+
+## Graceful HTTP Server Shutdown
+
+```go
+import (
+    "context"
+    "log/slog"
+    "net/http"
+    "os"
+    "os/signal"
+    "syscall"
+    "time"
+)
+
+func runServer(handler http.Handler) error {
+    srv := &http.Server{
+        Addr:         ":8080",
+        Handler:      handler,
+        ReadTimeout:  5 * time.Second,
+        WriteTimeout: 10 * time.Second,
+        IdleTimeout:  120 * time.Second,
+    }
+
+    // Start server in background goroutine.
+    serverErr := make(chan error, 1)
+    go func() {
+        slog.Info("server listening", "addr", srv.Addr)
+        if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+            serverErr <- err
+        }
+    }()
+
+    // Wait for OS signal or server error.
+    quit := make(chan os.Signal, 1)
+    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+
+    select {
+    case err := <-serverErr:
+        return err
+    case sig := <-quit:
+        slog.Info("shutdown signal received", "signal", sig)
+    }
+
+    // Graceful shutdown: drain in-flight requests within the deadline.
+    ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+    defer cancel()
+
+    if err := srv.Shutdown(ctx); err != nil {
+        return fmt.Errorf("server shutdown: %w", err)
+    }
+    slog.Info("server stopped gracefully")
+    return nil
+}
+```
+
 ## Quick Reference
 
 | Pattern | Use Case | Key Points |
@@ -327,3 +477,6 @@ func pipeline(ctx context.Context, input <-chan int) <-chan int {
 | Rate Limiter | API throttling | Control request rate |
 | Semaphore | Resource limits | Cap concurrent operations |
 | Done Channel | Graceful shutdown | Signal completion |
+| errgroup | Parallel tasks with error propagation | g.Go, g.Wait, g.SetLimit |
+| atomic types | Lock-free counters/flags | atomic.Int64, atomic.Bool, atomic.Pointer |
+| http.Server.Shutdown | Graceful HTTP drain | Signal handler + context deadline |

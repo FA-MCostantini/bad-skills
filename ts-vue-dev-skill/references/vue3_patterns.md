@@ -590,10 +590,36 @@ export function useForm<T extends Record<string, any>>(
 }
 ```
 
-### v-model with Computed
+### defineModel (Vue 3.4+) — PREFERRED
+
+`defineModel()` eliminates the need to manually declare `modelValue` prop + emit pair. It returns a writable ref that can be used directly with `v-model`.
+
 ```vue
 <script setup lang="ts">
-// Two-way binding with computed
+// Single default model
+const modelValue = defineModel<string>({ required: true });
+
+// Named model (maps to v-model:title on the parent)
+const title = defineModel<string>('title', { default: '' });
+</script>
+
+<template>
+  <input v-model="modelValue" />
+  <input v-model="title" />
+</template>
+```
+
+Parent usage:
+```vue
+<MyInput v-model="text" v-model:title="pageTitle" />
+```
+
+### v-model with Computed (legacy — pre-Vue 3.4)
+
+Use `defineModel` above for new code. This pattern remains valid for libraries targeting older Vue versions.
+
+```vue
+<script setup lang="ts">
 const props = defineProps<{
   modelValue: string;
 }>();
@@ -733,3 +759,135 @@ export const useUserStore = defineStore('user', () => {
   };
 });
 ```
+
+## Pinia Advanced Patterns
+
+```typescript
+import { storeToRefs } from 'pinia';
+
+// storeToRefs — preserves reactivity when destructuring
+const userStore = useUserStore();
+const { name, email } = storeToRefs(userStore); // reactive refs
+const { updateProfile } = userStore; // actions don't need storeToRefs
+
+// Store composition — use another store inside a setup store
+const useCartStore = defineStore('cart', () => {
+  const userStore = useUserStore();
+  const items = ref<CartItem[]>([]);
+  const total = computed(() => items.value.reduce((sum, i) => sum + i.price, 0));
+  const canCheckout = computed(() => userStore.isAuthenticated && items.value.length > 0);
+  return { items, total, canCheckout };
+});
+
+// $subscribe — observe state mutations (e.g. for persistence)
+userStore.$subscribe((mutation, state) => {
+  localStorage.setItem('user', JSON.stringify(state));
+});
+
+// $onAction — intercept actions (logging, error tracking)
+userStore.$onAction(({ name, args, after, onError }) => {
+  console.log(`Action ${name} called with`, args);
+  after((result) => console.log(`Action ${name} completed`, result));
+  onError((error) => console.error(`Action ${name} failed`, error));
+});
+```
+
+## Suspense Pattern
+
+Use `<Suspense>` to declaratively handle async component loading at the template level.
+
+```vue
+<template>
+  <Suspense>
+    <template #default>
+      <AsyncComponent />
+    </template>
+    <template #fallback>
+      <LoadingSpinner />
+    </template>
+  </Suspense>
+</template>
+
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
+
+const AsyncComponent = defineAsyncComponent(() => import('./HeavyComponent.vue'));
+</script>
+```
+
+## Teleport
+
+Render a component's DOM outside the Vue app root — useful for modals, toasts, and tooltips.
+
+```vue
+<template>
+  <Teleport to="body">
+    <div v-if="isOpen" class="modal-overlay">
+      <div class="modal-content">
+        <slot />
+      </div>
+    </div>
+  </Teleport>
+</template>
+```
+
+## Transition and TransitionGroup
+
+```vue
+<template>
+  <!-- Single element / component transition -->
+  <Transition name="fade" mode="out-in">
+    <component :is="currentView" :key="currentView" />
+  </Transition>
+
+  <!-- List transitions -->
+  <TransitionGroup name="list" tag="ul">
+    <li v-for="item in items" :key="item.id">{{ item.name }}</li>
+  </TransitionGroup>
+</template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active { transition: opacity 0.3s ease; }
+.fade-enter-from,
+.fade-leave-to { opacity: 0; }
+
+.list-enter-active,
+.list-leave-active { transition: all 0.3s ease; }
+.list-enter-from,
+.list-leave-to { opacity: 0; transform: translateX(-30px); }
+.list-move { transition: transform 0.3s ease; }
+</style>
+```
+
+## Custom Directives with TypeScript
+
+```typescript
+import type { Directive } from 'vue';
+
+const vFocus: Directive<HTMLInputElement, boolean> = {
+  mounted(el, binding) {
+    if (binding.value !== false) {
+      el.focus();
+    }
+  },
+};
+
+// Register globally
+app.directive('focus', vFocus);
+
+// Or use inline in <script setup> (must be named vSomething)
+// const vFocus = { ... }
+```
+
+## Security
+
+- **NEVER** use `v-html` with unsanitized user input — it bypasses Vue's XSS protection.
+- Use DOMPurify for any dynamic HTML rendering:
+  ```vue
+  <div v-html="DOMPurify.sanitize(content)" />
+  ```
+- Vue's `{{ }}` interpolation auto-escapes HTML — always prefer it over `v-html`.
+- For CSP: Vue 3 compiled templates do **not** require `unsafe-eval` (unlike Vue 2 runtime compilation).
+- Avoid binding user-controlled values to `href`, `src`, or event handler attributes directly.
+- Use `router.push` with literal route names or validated strings, never raw user input.

@@ -23,7 +23,7 @@ metadata:
   scope: implementation
   output-format: code
   autonomy: true
-  related-skills: project-dev-skill, ears-doc, postgresql16-dev-skill
+  related-skills: coding-standards-skill, ears-doc-skill, postgresql16-dev-skill
 ---
 
 # Go Senior Developer
@@ -81,13 +81,13 @@ Load on demand based on context:
 | Generics         | `references/generics.md`           | Type parameters, constraints, generic containers |
 | Testing          | `references/testing.md`            | Table tests, benchmarks, fuzzing, race detector  |
 | Security         | (inline rules below)               | Always                                           |
-| Requirements     | skill: **ears-doc**                | Writing specs, PRDs, acceptance criteria, SRS    |
+| Requirements     | skill: **ears-doc-skill**          | Writing specs, PRDs, acceptance criteria, SRS    |
 
 ---
 
-## Skill Delegation — ears-doc
+## Skill Delegation — ears-doc-skill
 
-Activate the **ears-doc** skill when the request involves:
+Activate the **ears-doc-skill** skill when the request involves:
 - Writing or reviewing functional/non-functional requirements for a system or service
 - Producing a PRD, SRS, feature spec, or acceptance criteria document
 - Converting user stories or vague descriptions into structured, verifiable requirements
@@ -96,7 +96,7 @@ Activate the **ears-doc** skill when the request involves:
 **How to hand off:**
 
 When one of the above is detected, pause implementation work and state:
-> "This request is primarily about requirements specification. Switching to ears-doc."
+> "This request is primarily about requirements specification. Switching to ears-doc-skill."
 
 Then apply the ears-doc workflow (Elicit → Classify → Draft → Validate → Structure → Review)
 before returning to Go implementation. Requirements must be settled before writing code.

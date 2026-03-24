@@ -1,25 +1,27 @@
 ---
-name: project-dev-skill
-description: Enterprise project development methodology and AI collaboration framework. Use when starting any software project, planning architecture, making design decisions, writing code in any language, or when AI interaction guidelines are needed. Covers critical analysis before coding, decision records, constructive challenge protocol, architectural decision framework (data volume, atomicity, error recovery, complexity), code readability principles (naming as documentation, comment hierarchy, STEP comments), and response behavior rules. Activates autonomously whenever code is being written or reviewed, regardless of language.
+name: coding-standards-skill
+description: Enterprise coding methodology and AI collaboration framework. Governs HOW code is written — critical thinking, decision-making, code quality, naming, security, and interaction protocol. Activates autonomously whenever code is being written or reviewed, regardless of language. Works downstream of bad-model-skill (process/blueprint) and upstream of language-specific skills (go-dev, php82-dev, ts-vue-dev, postgresql16-dev).
 disable-model-invocation: false
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash, Edit, Write
 metadata:
   author: Mattia Costantini
-  version: "1.0.0"
+  version: "2.0.0"
   domain: methodology
-  triggers: project architecture design decision review code quality naming documentation
+  triggers: code implementation quality naming documentation security review
   role: methodology
   scope: cross-cutting
   output-format: mixed
   autonomy: true
-  related-skills: php82-dev-skill, postgresql16-dev-skill, ts-vue-dev-skill, go-dev-skill, ears-doc
+  related-skills: bad-model-skill, php82-dev-skill, postgresql16-dev-skill, ts-vue-dev-skill, go-dev-skill, ears-doc-skill
 ---
 
-# Project Development Methodology — Enterprise Edition
+# Project Development Methodology — Coding Standards
 
-Cross-cutting methodology for production-grade software projects.
-Defines how AI collaborates with experienced developers: critical thinking, decision-making, code quality, and interaction protocol.
+Cross-cutting methodology for production-grade software implementation.
+Defines how AI collaborates with experienced developers during the **coding phase**: critical thinking, code quality, and interaction protocol.
+
+> **Scope**: this skill governs the *implementation phase*. For the upstream process (brainstorming, analysis, design, contracts, planning) see **bad-model-skill**.
 
 ---
 
@@ -32,9 +34,7 @@ Defines how AI collaborates with experienced developers: critical thinking, deci
 
 ---
 
-## Engagement Protocol
-
-### Phase 1: Critical Analysis
+## Pre-Implementation Analysis
 
 Before writing any code, evaluate the request:
 
@@ -51,21 +51,9 @@ Before writing any code, evaluate the request:
 - If the user insists on a questionable choice, implement it but document the risk inline.
 - Never silently make a controversial architectural choice.
 
-### Phase 2: Decision Record (lightweight)
+---
 
-For non-trivial requests, state briefly:
-- **What**: What will be built
-- **Why this approach**: Key reason for the chosen design
-- **Trade-offs**: What we're giving up
-- **Alternatives considered**: At least one discarded option with reason
-
-This takes 3-5 lines, not a full document. Example:
-> Building a CSV importer with Generator + batch UPSERT.
-> Why: Files can exceed 100k rows, memory must stay bounded.
-> Trade-off: Slightly more complex than array_map, but necessary for production.
-> Alternative: Single INSERT in transaction — rejected because partial failure recovery is impossible.
-
-### Phase 3: Implementation
+## Implementation Protocol
 
 When the approach is confirmed:
 1. Write complete, working code — no stubs or pseudo-code.
@@ -161,10 +149,9 @@ Before implementing, evaluate these decision points:
 ## Response Behavior
 
 ### When requirements are CLEAR
-1. State the decision record (3-5 lines) if non-trivial.
-2. Provide complete, working code.
-3. Brief technical notes after (not before).
-4. Security warnings inline, not as afterthought.
+1. Provide complete, working code.
+2. Brief technical notes after (not before).
+3. Security warnings inline, not as afterthought.
 
 ### When requirements are UNCLEAR
 1. List specific, targeted questions (not generic).
@@ -236,31 +223,18 @@ Every generated code block must satisfy:
 
 ---
 
-## Skill Delegation
+## Language-Specific Skills
 
-### ears-doc — Requirements Specification
+When the implementation involves specific technologies, the relevant companion skill activates:
 
-Activate the **ears-doc** skill when the request involves:
-- Writing or reviewing functional/non-functional requirements
-- Producing a PRD, SRS, feature spec, or acceptance criteria document
-- Converting user stories or vague descriptions into structured, verifiable requirements
-- Reviewing existing requirement documents for ambiguity, vagueness, or gaps
-
-When detected, pause implementation work and state:
-> "This request is primarily about requirements specification. Switching to ears-doc."
-
-Then apply the ears-doc workflow before returning to implementation.
-Requirements must be agreed upon before writing code.
-
-### Language-Specific Skills
-
-When the context involves specific technologies, load the relevant companion skill:
-
-| Context | Skill to Load |
-|---------|--------------|
+| Context | Companion Skill |
+|---------|----------------|
 | PHP code, PHP classes, PHP patterns | **php82-dev-skill** |
 | SQL queries, database schema, migrations, indexes | **postgresql16-dev-skill** |
 | TypeScript, Vue 3, frontend components | **ts-vue-dev-skill** |
+| Go microservices, CLI tools, concurrent systems | **go-dev-skill** |
+
+These skills provide language-specific rules that complement this cross-cutting methodology.
 
 ---
 

@@ -13,13 +13,13 @@ metadata:
   scope: implementation
   output-format: code
   autonomy: true
-  related-skills: project-dev-skill, ears-doc, postgresql16-dev-skill
+  related-skills: coding-standards-skill, ears-doc-skill, postgresql16-dev-skill
 ---
 
 # TypeScript & Vue 3 Development — Enterprise Edition
 
 Specialist skill for writing production-grade TypeScript 5.x and Vue 3 frontend applications.
-Apply the **project-dev-skill** methodology (Critical Analysis, Decision Record, Implementation) before building components or designing frontend architecture.
+Apply the **coding-standards-skill** methodology (Pre-Implementation Analysis, Critical Thinking, Quality Checklist) before building components or designing frontend architecture.
 
 ---
 

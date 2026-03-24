@@ -13,13 +13,13 @@ metadata:
   scope: implementation
   output-format: code
   autonomy: true
-  related-skills: project-dev-skill, ears-doc, postgresql16-dev-skill
+  related-skills: coding-standards-skill, ears-doc-skill, postgresql16-dev-skill
 ---
 
 # PHP 8.2 Development — Enterprise Edition
 
 Specialist skill for writing production-grade PHP 8.2+ code.
-Apply the **project-dev-skill** methodology (Critical Analysis, Decision Record, Implementation) before writing any PHP code.
+Apply the **coding-standards-skill** methodology (Pre-Implementation Analysis, Critical Thinking, Quality Checklist) before writing any PHP code.
 
 ---
 

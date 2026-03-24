@@ -6,7 +6,7 @@
 package main
 
 // Generic function with type parameter
-func Max[T constraints.Ordered](a, b T) T {
+func Max[T cmp.Ordered](a, b T) T {
     if a > b {
         return a
     }
@@ -37,11 +37,16 @@ func main() {
 ## Type Constraints
 
 ```go
-import "constraints"
+import "cmp"
 
-// Built-in constraints
+// cmp.Ordered covers all ordered types (integers, floats, strings)
+// Use it directly as a constraint or inline in interfaces.
+
+// Custom numeric constraint (integers + floats)
 type Number interface {
-    constraints.Integer | constraints.Float
+    ~int | ~int8 | ~int16 | ~int32 | ~int64 |
+    ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 |
+    ~float32 | ~float64
 }
 
 func Sum[T Number](numbers []T) T {
@@ -320,7 +325,7 @@ result := Identity(42)          // T inferred as int
 str := Identity("hello")        // T inferred as string
 
 // Type inference with constraints
-func Min[T constraints.Ordered](a, b T) T {
+func Min[T cmp.Ordered](a, b T) T {
     if a < b {
         return a
     }
@@ -429,6 +434,66 @@ func Serialize[T Serializable](data T) []byte {
 }
 ```
 
+## slices and maps Stdlib Packages (Go 1.21+)
+
+The `slices` and `maps` packages in the standard library provide generic utilities that replace many hand-rolled helpers.
+
+```go
+import (
+    "cmp"
+    "maps"
+    "slices"
+)
+
+// slices.SortFunc — sort with a custom comparator
+type Person struct{ Name string; Age int }
+people := []Person{{"Bob", 30}, {"Alice", 25}, {"Carol", 35}}
+slices.SortFunc(people, func(a, b Person) int {
+    return cmp.Compare(a.Age, b.Age)
+})
+
+// slices.Contains — check membership (requires comparable element type)
+fruits := []string{"apple", "banana", "cherry"}
+fmt.Println(slices.Contains(fruits, "banana")) // true
+
+// slices.Collect — collect values from an iterator (Go 1.23+)
+// For Go 1.21/1.22, use slices.AppendSeq or manual loops.
+// Example with a simple generator:
+nums := slices.Collect(func(yield func(int) bool) {
+    for i := range 5 {
+        if !yield(i * i) {
+            return
+        }
+    }
+})
+// nums = [0, 1, 4, 9, 16]
+
+// maps.Keys — extract keys (order not guaranteed)
+m := map[string]int{"a": 1, "b": 2, "c": 3}
+keys := slices.Sorted(maps.Keys(m)) // sort for determinism
+// keys = ["a", "b", "c"]
+
+// maps.Values — extract values
+vals := slices.Collect(maps.Values(m))
+
+// maps.Clone — shallow copy
+copy := maps.Clone(m)
+
+// maps.Delete (delete matching keys)
+maps.DeleteFunc(m, func(k string, v int) bool { return v < 2 })
+```
+
+### When to use stdlib vs custom generics
+
+| Task | Use |
+|------|-----|
+| Sort slice | `slices.SortFunc` |
+| Check membership | `slices.Contains` |
+| Copy map | `maps.Clone` |
+| Iterate map keys | `maps.Keys` |
+| Min/max of ordered type | `min(a, b)` / `max(a, b)` (builtin Go 1.21+) |
+| Complex transformation | Custom generic `Map`, `Filter`, `Reduce` |
+
 ## Quick Reference
 
 | Feature | Syntax | Use Case |
@@ -437,6 +502,6 @@ func Serialize[T Serializable](data T) []byte {
 | Constraint | `func F[T Constraint]()` | Restricted types |
 | Multiple params | `func F[T, U any]()` | Multiple type variables |
 | Comparable | `func F[T comparable]()` | Types supporting == and != |
-| Ordered | `func F[T constraints.Ordered]()` | Types supporting <, >, <=, >= |
+| Ordered | `func F[T cmp.Ordered]()` | Types supporting <, >, <=, >= |
 | Union | `T interface{int \| string}` | Either type |
 | Approximate | `~int` | Include type aliases |

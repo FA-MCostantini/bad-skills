@@ -13,13 +13,13 @@ metadata:
   scope: implementation
   output-format: code
   autonomy: true
-  related-skills: project-dev-skill, ears-doc
+  related-skills: coding-standards-skill, ears-doc-skill
 ---
 
 # PostgreSQL 16 Development — Enterprise Edition
 
 Specialist skill for writing production-grade SQL for PostgreSQL 16.
-Apply the **project-dev-skill** methodology (Critical Analysis, Decision Record, Implementation) before designing schemas or writing complex queries.
+Apply the **coding-standards-skill** methodology (Pre-Implementation Analysis, Critical Thinking, Quality Checklist) before designing schemas or writing complex queries.
 
 ---
 
