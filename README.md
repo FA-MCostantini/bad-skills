@@ -5,6 +5,9 @@
 
 Repository dedicato allo sviluppo del modello architetturale **Blueprint Agentic Model (BAM)** e delle skill Claude Code che ne implementano il processo e le best practice di sviluppo software.
 
+Parafrasando Rajasekaran di Anthrop\c Labs 24/03/2025 (https://www.anthropic.com/engineering/harness-design-long-running-apps)
+Ecco una nuova stimolante combinazione di imbracature per domare Agenti AI.
+
 ## Contenuto del repository
 
 ### 1. Blueprint Agentic Model (BAM)
