@@ -1,9 +1,9 @@
 # Blueprint Agentic Model
 
-**Autore:** Mattia Costantini (Rancor)
-**Affiliazione:** Senior Architect, Firstance s.r.l.
-**Contatto:** rancorow@gmail.com
-**Versione:** Draft
+**Autore:** Mattia Costantini (Rancor)\
+**Affiliazione:** Senior Architect, Firstance s.r.l.\
+**Contatto:** rancorow@gmail.com\
+**Versione:** Draft\
 
 ---
 
@@ -643,8 +643,8 @@ Il formato è descrittivo-tabellare: ogni sezione risponde a una domanda specifi
 
 | Livello     | Scopo                               | Frequenza          |
 |-------------|-------------------------------------|--------------------|
-| Unit        | Logica isolata, singola unità       | Ad ogni commit     |
-| Integration | Interazione tra componenti          | Ad ogni PR         |
+| Unit        | Logica isolata, singola unità       | A ogni commit      |
+| Integration | Interazione tra componenti          | A ogni PR          |
 | System      | End-to-end su stack completo        | Prima del rilascio |
 | Acceptance  | Validazione criteri di accettazione | Prima del rilascio |
 
@@ -755,7 +755,6 @@ Table ordine {
 **Volume stimato**: <N record>
 **Strategia partizionamento**: <se applicabile>
 **Note operative**: <vincoli di business, regole di cancellazione, ecc.>
-```
 
 **Regole**:
 - Il diagramma Mermaid è obbligatorio e deve rappresentare tutte le relazioni tra entità.
@@ -767,6 +766,7 @@ Table ordine {
 ---
 
 ## TODO
+
 - [ ] Rivedere la bibliografia, in modo che sia coerente, punti agli articoli corretti. Inserire nel testo i richiami alla bibbliografia.
 - [ ] Inserire dei grafici in asci art che descrive i processi
 - [ ] Creare un'immagine che descriva l'utilizzo sinergico dei vari modelli che costituiscono il BAM
