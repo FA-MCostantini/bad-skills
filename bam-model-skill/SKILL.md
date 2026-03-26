@@ -1,6 +1,6 @@
 ---
-name: bad-model-skill
-description: Blueprint Agentic Development — structured process for AI-assisted software projects. Orchestrates the full lifecycle from idea to implementation-ready blueprint through 4 phases (Brainstorming, Analysis/Design, Contract, Planning). Produces documentation artifacts that serve as the single source of truth for code generation. Use when starting any new project, feature, or significant evolution.
+name: bam-model-skill
+description: Blueprint Agentic Model — structured process for AI-assisted software projects. Orchestrates the full lifecycle from idea to implementation-ready blueprint through 4 phases (Brainstorming, Analysis/Design, Contract, Planning). Produces documentation artifacts that serve as the single source of truth for code generation. Use when starting any new project, feature, or significant evolution.
 disable-model-invocation: false
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash, Edit, Write, Agent
@@ -16,7 +16,7 @@ metadata:
   related-skills: coding-standards-skill, ears-doc-skill, php82-dev-skill, postgresql16-dev-skill, ts-vue-dev-skill, go-dev-skill
 ---
 
-# Blueprint Agentic Development (BAD)
+# Blueprint Agentic Model (BAM)
 
 Processo strutturato per lo sviluppo software assistito da Agenti AI.
 La documentazione tecnica e' la **fonte epistemica primaria** (*single source of truth*) da cui gli Agenti generano codice in modo autonomo e verificabile.
@@ -118,7 +118,7 @@ Completata la Fase 4 con validazione:
 
 ## Evoluzione di un Progetto Esistente
 
-Per modifiche su progetti gia' avviati con BAD:
+Per modifiche su progetti gia' avviati con BAM:
 
 1. Aggiorna `CHANGELOG.md` con le modifiche richieste.
 2. Apri una nuova iterazione in `AQ_ITERATIONS.md` per chiarimenti.
@@ -140,7 +140,7 @@ Se la conversazione supera i 20 scambi all'interno di una fase, rileggi il refer
 Per inizializzare la struttura documentale di un nuovo progetto:
 
 ```bash
-python3 bad-model-skill/scripts/bootstrap_bad_project.py /path/to/project
+python3 bam-model-skill/scripts/bootstrap_bam_project.py /path/to/project
 ```
 
 Crea l'intera struttura di directory e file template pronti per essere compilati.
@@ -152,18 +152,18 @@ Crea l'intera struttura di directory e file template pronti per essere compilati
 | File | Fase | Scopo | Standard |
 |------|------|-------|----------|
 | `PROJECT.md` | 1 | Visione e obiettivi di business | Product Vision Template |
-| `AQ_ITERATIONS.md` | 1 | Log Q&A iterativo umano-AI | BAD A.1 |
+| `AQ_ITERATIONS.md` | 1 | Log Q&A iterativo umano-AI | BAM A.1 |
 | `TECH_STACK.md` | 2 | Inventario tecnologico, vincoli infrastrutturali e non funzionali | RFC 2119 + Twelve-Factor App |
 | `ACCEPTANCE_CRITERIA.md` | 2 | Criteri di accettazione per feature | Standard EARS |
 | `ADR/` | 2 | Registro decisioni architetturali | Nygard ADR Format |
 | `GLOSSARIO.md` | 2 | Linguaggio ubiquitario (DDD) | Domain-Driven Design |
-| `LOGGING_STRATEGY.md` | 2 | Standard di osservabilita' | BAD A.2 |
-| `TEST_ENVIRONMENT.md` | 2 | Strategia di test, ambienti, mock e dati | BAD A.6 |
+| `LOGGING_STRATEGY.md` | 2 | Standard di osservabilita' | BAM A.2 |
+| `TEST_ENVIRONMENT.md` | 2 | Strategia di test, ambienti, mock e dati | BAM A.6 |
 | `DEPLOY.md` | 2 | Pipeline CI/CD e rilascio | DevOps Best Practices |
-| `API_SPEC.md` | 3 | Contratti di interfaccia endpoint | BAD A.3 |
-| `SCHEMA_REFERENCE.md` | 3 | Diagrammi ER (Mermaid) e definizione tabelle (DBML) | BAD A.7 |
-| `QUERY_REFERENCE.md` | 3 | Query SQL critiche e Gold Standard | BAD A.4 |
+| `API_SPEC.md` | 3 | Contratti di interfaccia endpoint | BAM A.3 |
+| `SCHEMA_REFERENCE.md` | 3 | Diagrammi ER (Mermaid) e definizione tabelle (DBML) | BAM A.7 |
+| `QUERY_REFERENCE.md` | 3 | Query SQL critiche e Gold Standard | BAM A.4 |
 | `EXPLAIN_TEST.md` | 3 | Elenco test per fase progettuale | Standard BDD |
-| `EXECUTION_PLAN.md` | 4 | Roadmap multi-agentica | BAD A.5 |
+| `EXECUTION_PLAN.md` | 4 | Roadmap multi-agentica | BAM A.5 |
 | `CHANGELOG.md` | Evo | Modifiche richieste | Keep a Changelog |
 | `README.md` | 4 | Presentazione progetto | Standard GitHub |

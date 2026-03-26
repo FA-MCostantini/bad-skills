@@ -1,4 +1,4 @@
-# Template — QUERY_REFERENCE.md (BAD Appendice A.4)
+# Template — QUERY_REFERENCE.md (BAM Appendice A.4)
 
 Documenta le query SQL critiche o complesse dell'applicazione.
 Fornisce agli Agenti AI esempi Gold Standard per la generazione del codice di persistenza.

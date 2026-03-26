@@ -1,4 +1,4 @@
-# Template — API_SPEC.md (BAD Appendice A.3)
+# Template — API_SPEC.md (BAM Appendice A.3)
 
 Documenta tutti gli endpoint esposti dal backend con parametri, risposte attese e logica.
 Rappresenta il contratto di interfaccia tra frontend e backend.

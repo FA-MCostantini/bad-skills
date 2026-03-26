@@ -23,7 +23,7 @@ metadata:
   scope: documentation
   output-format: markdown
   autonomy: true
-  related-skills: coding-standards-skill, bad-model-skill
+  related-skills: coding-standards-skill, bam-model-skill
 ---
 
 # EARS Requirements Engineer

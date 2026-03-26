@@ -1,4 +1,4 @@
-# Template — TEST_ENVIRONMENT.md (BAD Appendice A.6)
+# Template — TEST_ENVIRONMENT.md (BAM Appendice A.6)
 
 Descrive la strategia e l'architettura degli ambienti di test in modo leggibile e validabile
 anche da chi non conosce i dettagli implementativi. Il formato e' descrittivo-tabellare.

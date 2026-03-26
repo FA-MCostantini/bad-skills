@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Bootstrap BAD Project Structure.
+Bootstrap BAM Project Structure.
 
 Creates the complete documentation directory structure
-for a Blueprint Agentic Development project.
+for a Blueprint Agentic Model project.
 
 Usage:
-    python3 bootstrap_bad_project.py /path/to/project [project_name]
+    python3 bootstrap_bam_project.py /path/to/project [project_name]
 """
 import os
 import sys
@@ -138,7 +138,7 @@ Standard di riferimento: **Domain-Driven Design — Ubiquitous Language**
 LOGGING_STRATEGY_TEMPLATE = """# Strategia di Logging — {project_name}
 
 Formato di riferimento: **Structured JSON Logging**
-Standard di riferimento: **BAD Appendice A.2**
+Standard di riferimento: **BAM Appendice A.2**
 
 ---
 
@@ -168,7 +168,7 @@ Standard di riferimento: **BAD Appendice A.2**
 
 TEST_ENVIRONMENT_TEMPLATE = """# Ambiente di Test — {project_name}
 
-Standard di riferimento: **BAD Appendice A.6**
+Standard di riferimento: **BAM Appendice A.6**
 
 ---
 
@@ -232,7 +232,7 @@ DEPLOY_TEMPLATE = """# Scenari di Rilascio — {project_name}
 API_SPEC_TEMPLATE = """# Specifica API — {project_name}
 
 Formato: **Endpoint-Action Reference**
-Standard di riferimento: **BAD Appendice A.3**
+Standard di riferimento: **BAM Appendice A.3**
 
 ---
 
@@ -247,7 +247,7 @@ Standard di riferimento: **BAD Appendice A.3**
 
 SCHEMA_REFERENCE_TEMPLATE = """# Schema Reference — {project_name}
 
-Standard di riferimento: **BAD Appendice A.7 (DBML + Mermaid erDiagram)**
+Standard di riferimento: **BAM Appendice A.7 (DBML + Mermaid erDiagram)**
 
 ---
 
@@ -276,7 +276,7 @@ erDiagram
 
 QUERY_REFERENCE_TEMPLATE = """# Query Reference — {project_name}
 
-Standard di riferimento: **BAD Appendice A.4**
+Standard di riferimento: **BAM Appendice A.4**
 
 Questo documento raccoglie le query SQL critiche o complesse,
 organizzate per modulo.
@@ -319,7 +319,7 @@ EXECUTION_PLAN_TEMPLATE = """# {project_name} — Piano di Esecuzione Multi-Agen
 
 **Tech Stack:** <elenco tecnologie>
 
-Standard di riferimento: **BAD Appendice A.5**
+Standard di riferimento: **BAM Appendice A.5**
 
 ---
 
@@ -375,7 +375,7 @@ La documentazione completa si trova nella cartella `docs/`:
 """
 
 
-# Files organized by BAD phase
+# Files organized by BAM phase
 PHASE_1_FILES = {
     "PROJECT.md": PROJECT_TEMPLATE,
     "AQ_ITERATIONS.md": AQ_TEMPLATE,
@@ -420,7 +420,7 @@ def create_file(filepath, content, project_name):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: bootstrap_bad_project.py <project_root> [project_name]")
+        print("Usage: bootstrap_bam_project.py <project_root> [project_name]")
         print("  project_root: path to the project directory")
         print("  project_name: name of the project (default: directory name)")
         sys.exit(1)
@@ -432,7 +432,7 @@ def main():
         print(f"Error: {project_root} is not a valid directory", file=sys.stderr)
         sys.exit(1)
 
-    print(f"\nBootstrapping BAD project: {project_name}")
+    print(f"\nBootstrapping BAM project: {project_name}")
     print(f"Directory: {project_root}")
     print(f"{'=' * 50}")
 
@@ -463,7 +463,7 @@ def main():
     print(f"\n{'=' * 50}")
     print(f"Done: {created_count} created, {skipped_count} skipped")
     print(f"\nNext step: edit PROJECT.md with your project vision,")
-    print(f"then run bad-model-skill Phase 1 (Brainstorming).")
+    print(f"then run bam-model-skill Phase 1 (Brainstorming).")
 
 
 if __name__ == "__main__":

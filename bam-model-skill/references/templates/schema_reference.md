@@ -1,4 +1,4 @@
-# Template — SCHEMA_REFERENCE.md (BAD Appendice A.7)
+# Template — SCHEMA_REFERENCE.md (BAM Appendice A.7)
 
 Formalizza la struttura della persistenza usando DBML per la definizione dichiarativa
 e Mermaid erDiagram per la visualizzazione delle relazioni.

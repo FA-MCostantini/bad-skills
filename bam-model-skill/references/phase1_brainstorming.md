@@ -71,7 +71,7 @@ Aggiorna `PROJECT.md` con tutti i dettagli emersi dal loop Q&A:
 | File | Formato | Scopo |
 |------|---------|-------|
 | `PROJECT.md` | Testo strutturato | Visione, obiettivi, perimetro, vincoli |
-| `AQ_ITERATIONS.md` | Template BAD A.1 | Log storico Q&A — vedi `references/templates/aq_iterations.md` |
+| `AQ_ITERATIONS.md` | Template BAM A.1 | Log storico Q&A — vedi `references/templates/aq_iterations.md` |
 
 ---
 

@@ -74,7 +74,7 @@ Definizione della strategia di osservabilita'.
 - Regole di sicurezza
 - Policy di retention
 
-**Standard di riferimento**: BAD Appendice A.2
+**Standard di riferimento**: BAM Appendice A.2
 
 ### Step 6: Ambiente di Test — `TEST_ENVIRONMENT.md`
 
@@ -89,7 +89,7 @@ Strategia e architettura degli ambienti di test. Il documento deve essere leggib
 
 **Formato**: descrittivo-tabellare — le tabelle sono il formato primario.
 
-**Standard di riferimento**: BAD Appendice A.6
+**Standard di riferimento**: BAM Appendice A.6
 
 ### Step 7: Scenari di Rilascio — `DEPLOY.md`
 
@@ -112,8 +112,8 @@ Processi per il rilascio operativo.
 | `ACCEPTANCE_CRITERIA.md` | — (usa ears-doc-skill) | EARS |
 | `ADR/NNNN-*.md` | Nygard format | Nygard ADR |
 | `GLOSSARIO.md` | — | DDD |
-| `LOGGING_STRATEGY.md` | `templates/logging_strategy.md` | BAD A.2 |
-| `TEST_ENVIRONMENT.md` | `templates/test_environment.md` | BAD A.6 |
+| `LOGGING_STRATEGY.md` | `templates/logging_strategy.md` | BAM A.2 |
+| `TEST_ENVIRONMENT.md` | `templates/test_environment.md` | BAM A.6 |
 | `DEPLOY.md` | — | DevOps |
 
 ---

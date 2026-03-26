@@ -1,4 +1,4 @@
-# Template — LOGGING_STRATEGY.md (BAD Appendice A.2)
+# Template — LOGGING_STRATEGY.md (BAM Appendice A.2)
 
 Definisce canali, formati e regole di logging dell'applicazione.
 Fornisce agli Agenti AI le specifiche per implementare il logging in modo coerente e sicuro.

@@ -1,4 +1,4 @@
-# Blueprint Agentic Development
+# Blueprint Agentic Model
 
 **Autore:** Mattia Costantini (Rancor)
 **Affiliazione:** Senior Architect, Firstance s.r.l.
@@ -9,7 +9,7 @@
 
 ## Abstract
 
-Il presente lavoro introduce il paradigma ***Blueprint Agentic Development*** (BAD), un processo metodologico per lo sviluppo software assistito da Agenti di intelligenza artificiale generativa.
+Il presente lavoro introduce il paradigma ***Blueprint Agentic Model*** (BAM), un processo metodologico per lo sviluppo software assistito da Agenti di intelligenza artificiale generativa.
 Il paradigma si fonda sul principio che la documentazione tecnica, strutturata secondo standard ingegneristici consolidati, costituisca la **fonte epistemica primaria (*single source of truth*)**
 a partire dalla quale gli Agenti AI generano il codice sorgente in modo autonomo e verificabile.
 
@@ -24,7 +24,7 @@ Il contributo si colloca nel contesto della letteratura emergente sul ***Vibe Co
 
 ## 1. Introduzione
 
-A differenza del ***V Model*** o del ***Waterfall***, il processo ***BAD*** opera su un paradigma di **Sintesi Comportamentale**:
+A differenza del ***V Model*** o del ***Waterfall***, il processo ***BAM*** opera su un paradigma di **Sintesi Comportamentale**:
 il **blueprint** costruito in sinergia con l'AI funge da specifica immutabile per gli Agenti che, in piena autonomia, generano il codice.
 
 Il design segue il solco tracciato dai paradigmi «***Spec-Driven Development***» (SDD) e «***Behavior-Driven Development***»,
@@ -48,7 +48,7 @@ La scrittura del codice, che fino a oggi è stata di pieno dominio del programma
 Ciò porta alla definizione di un processo operativo chiaro, dettagliato e verificabile per colmare il divario tra l'intelletto umano e la potenza artificiale.
 Come già introdotto da (Sapkota et al., 2025), si tratta di un nuovo **layer semiotico** che trasforma la documentazione nel ***single source of truth***.
 
-I concetti su cui si vuole porre l'accento, nel sistema BAD, sono:
+I concetti su cui si vuole porre l'accento, nel sistema BAM, sono:
 
 - **Comprensione reciproca**; il primo obiettivo da traguardare è la comprensione reciproca dell'attività da svolgere. Non si accetta il primo risultato come definitivo, ma si procede a un affinamento **iterativo**.
 Alcuni degli strumenti che possono essere di supporto in questa fase sono la ***Comunicazione Non Violenta*** o la ***Comunicazione Assertiva***.
@@ -79,7 +79,7 @@ Operando con Agenti AI, questo peso è ancora più marcato, sia per la quantità
 
 Il processo di allineamento segue un **ciclo iterativo «Socratico»**:
 
-1. **Enunciazione del progetto (`PROJECT.md`)**: viene enuncia l'idea iniziale; non è necessario essere tecnici, è necessario essere **chiari sugli obiettivi di *business*,
+1. **Enunciazione del progetto (`PROJECT.md`)**: viene enunciata l'idea iniziale; non è necessario essere tecnici, è necessario essere **chiari sugli obiettivi di *business*,
 l'esperienza utente, il contesto applicativo e operativo**. È utile introdurre esempi pratici tratti da contesti realistici.
 2. **Analisi critica dell'AI**: l'AI non deve limitarsi ad accettare il *brief*; deve analizzarlo cercando lacune logiche, conflitti tra requisiti o ambiguità terminologiche.
 3. **Il loop di QA (`AQ_ITERATIONS.md`)**: l'AI pone una serie di domande mirate ad aumentare la definizione e comprensione del progetto; sia domande che risposte devono essere tracciate.
@@ -89,7 +89,7 @@ Questo processo continua finché l'AI non dichiara di avere una «comprensione a
 | File               | Scopo                                                                            | Standard / Riferimento    |
 |--------------------|----------------------------------------------------------------------------------|---------------------------|
 | `PROJECT.md`       | Visione di alto livello e obiettivi del *business*.                              | *Product Vision Template* |
-| `AQ_ITERATIONS.md` | Log storico dei chiarimenti tra umano e AI. Evita di ripetere domande già fatte. | **BAD — Appendice A.1**   |
+| `AQ_ITERATIONS.md` | Log storico dei chiarimenti tra umano e AI. Evita di ripetere domande già fatte. | **BAM — Appendice A.1**   |
 
 ---
 
@@ -119,7 +119,7 @@ I principi infrastrutturali seguono le linee guida della ***Twelve-Factor App***
 4. **Consistenza semantica (`GLOSSARIO.md`)**: viene stabilito il **Linguaggio Ubiquitario (DDD)** nel Glossario per evitare che l'AI utilizzi sinonimi diversi per lo stesso concetto di *business* nel codice (Evans, 2003).
 5. **Osservabilità (`LOGGING_STRATEGY.md`)**: viene definita la strategia di *logging* per garantire che l'applicazione sia monitorabile secondo gli standard di **Observability** (formati JSON, livelli di severità, tracciamento delle transazioni).
 6. **Descrizione dell'ambiente di test (`TEST_ENVIRONMENT.md`)**: questo documento specifica la strategia e l'architettura necessaria per eseguire i test. Descrive gli ambienti (unit, integration, system), i *server mock* necessari, le fonti dei dati di test e le configurazioni per ambiente.
-Il formato è **descrittivo-tabellare**, progettato per essere leggibile da chi deve validare la strategia di test senza conoscere i dettagli implementativi *(Standard di riferimento: **BAD — Appendice A.6**)*.
+Il formato è **descrittivo-tabellare**, progettato per essere leggibile da chi deve validare la strategia di test senza conoscere i dettagli implementativi *(Standard di riferimento: **BAM — Appendice A.6**)*.
 7. **Scenari di rilascio (`DEPLOY.md`)**: descrive i processi che portano al rilascio operativo del progetto. Elenca i passaggi per l'installazione, la configurazione e l'implementazione.
 
 Al termine di questa fase, il sistema deve aver generato un insieme di documenti che fungano da ***Single Source of Truth***.
@@ -131,9 +131,9 @@ Questa fase forza gli agenti a essere «**esecutori tecnici**» riducendo l'auto
 | `TECH_STACK.md`          | Inventario tecnologico, vincoli infrastrutturali e non funzionali.            | **RFC 2119 + Twelve-Factor App** |
 | `ACCEPTANCE_CRITERIA.md` | Definizione di «fatto» per ogni *feature*, scritto in linguaggio strutturato. | **Standard EARS**                |
 | `ADR/` (Cartella)        | Registro delle decisioni architettoniche (es. perché quel DB?).               | **Nygard ADR Format**            |
-| `LOGGING_STRATEGY.md`    | Standard di osservabilità: formati, livelli e sicurezza dei *log*.            | **BAD — Appendice A.2**          |
+| `LOGGING_STRATEGY.md`    | Standard di osservabilità: formati, livelli e sicurezza dei *log*.            | **BAM — Appendice A.2**          |
 | `GLOSSARIO.md`           | Allineamento terminologico (*Ubiquitous Language*).                           | **DDD (*Domain-Driven Design*)** |
-| `TEST_ENVIRONMENT.md`    | Strategia di test, ambienti, *mock* e dati di test.                           | **BAD — Appendice A.6**          |
+| `TEST_ENVIRONMENT.md`    | Strategia di test, ambienti, *mock* e dati di test.                           | **BAM — Appendice A.6**          |
 | `DEPLOY.md`              | *Pipeline* CI/CD e istruzioni per il rilascio.                                | *DevOps Best Practices*          |
 
 ---
@@ -155,7 +155,7 @@ Se nelle fasi precedenti è stata data enfasi alle scelte architetturali, il *fo
 1. **Definizione dei contratti di interfaccia (`API_SPEC.md`)**: vengono descritte sia le interfacce consumate che quelle esposte. In uno scenario in cui si ha un'interazione tra *frontend* e un *backend*,
 saranno descritti i punti di interazione e le logiche di utilizzo.
 2. **Modellazione del dominio dati (`SCHEMA_REFERENCE.md`)**: viene formalizzata la struttura della persistenza utilizzando **DBML** (*Database Markup Language*) per la definizione dichiarativa delle tabelle, relazioni e indici, e **Mermaid erDiagram** per la visualizzazione dei diagrammi ER direttamente nel *Markdown*. Non si tratta solo di elencare tabelle, ma di descrivere le relazioni,
-i vincoli di integrità referenziale, gli indici necessari per le *performance* e le strategie di partizionamento *(Standard di riferimento: **BAD — Appendice A.7**)*.
+i vincoli di integrità referenziale, gli indici necessari per le *performance* e le strategie di partizionamento *(Standard di riferimento: **BAM — Appendice A.7**)*.
 3. **Riferimento della logica di accesso (`QUERY_REFERENCE.md`)**: questo documento raccoglie le operazioni di lettura/scrittura più critiche o complesse.
 Serve a descrivere come i dati devono essere estratti o aggregati, fornendo all'AI degli «esempi» tipici (*Gold Standard*) per evitare inefficienze e vulnus.
 4. **Elenco globale dei test (`EXPLAIN_TEST.md`)**: In questo documenti vengono elencati tutti i test, suddivisi per area *unit*, *integration*, *system*, *acceptance*.
@@ -163,9 +163,9 @@ Serviranno, in prima istanza, agli Agenti per validare il processo di sviluppo e
 
 | File                  | Scopo                                                        | Standard / Riferimento  |
 |-----------------------|--------------------------------------------------------------|-------------------------|
-| `API_SPEC.md`         | Definizione degli *endpoint* e dei contratti di interfaccia. | **BAD — Appendice A.3** |
-| `SCHEMA_REFERENCE.md` | Diagrammi ER (Mermaid) e definizione tabelle (DBML).         | **BAD — Appendice A.7** |
-| `QUERY_REFERENCE.md`  | Esempi di *query* complesse e logica di persistenza.         | **BAD — Appendice A.4** |
+| `API_SPEC.md`         | Definizione degli *endpoint* e dei contratti di interfaccia. | **BAM — Appendice A.3** |
+| `SCHEMA_REFERENCE.md` | Diagrammi ER (Mermaid) e definizione tabelle (DBML).         | **BAM — Appendice A.7** |
+| `QUERY_REFERENCE.md`  | Esempi di *query* complesse e logica di persistenza.         | **BAM — Appendice A.4** |
 | `EXPLAIN_TEST.md`     | Elenco ti tutti i test da prevedere per fase progettuale.    | **Standard BDD**        |
 
 ---
@@ -193,7 +193,7 @@ Il documento conterrà inoltre una suddivisione in fasi progettuali ben distinte
 
 | File                | Scopo                                                                               | Standard / Riferimento       |
 |---------------------|-------------------------------------------------------------------------------------|------------------------------|
-| `EXECUTION_PLAN.md` | *Roadmap* tecnica per gli Agenti: chi fa cosa, quali *tool* e quali *plugin* usare. | **BAD — Appendice A.5**      |
+| `EXECUTION_PLAN.md` | *Roadmap* tecnica per gli Agenti: chi fa cosa, quali *tool* e quali *plugin* usare. | **BAM — Appendice A.5**      |
 | `README.md`         | Presentazione del progetto, *overview*, *setup* rapido.                             | *Standard De Facto* (GitHub) |
 
 ---
@@ -229,7 +229,7 @@ Rimane importante il concetto di **iterazione** e di **tracciabilità* per quest
 | File               | Scopo                                                                            | Standard / Riferimento      |
 |--------------------|----------------------------------------------------------------------------------|-----------------------------|
 | `CHANGELOG.md`     | Modifiche richieste.                                                             | **Keep a Changelog**        |
-| `AQ_ITERATIONS.md` | Log storico dei chiarimenti tra umano e AI. Evita di ripetere domande già fatte. | **BAD — Appendice A.1**     |
+| `AQ_ITERATIONS.md` | Log storico dei chiarimenti tra umano e AI. Evita di ripetere domande già fatte. | **BAM — Appendice A.1**     |
 
 Terminata la quale si chiede agli Agenti di
 1. Aggiornare la documentazione
@@ -265,10 +265,10 @@ Terminata la quale si chiede agli Agenti di
 
 ---
 
-## Appendice — Template dei formati proprietari BAD
+## Appendice — Template dei formati proprietari BAM
 
 I seguenti template descrivono la struttura dei file che non seguono uno standard normativo esterno
-ma adottano un formato proprietario definito all'interno del paradigma *Blueprint Agentic Development*.
+ma adottano un formato proprietario definito all'interno del paradigma *Blueprint Agentic Model*.
 Per ogni template sono indicati: lo scopo, la struttura attesa, le convenzioni di naming e un esempio commentato.
 
 ---
@@ -769,4 +769,4 @@ Table ordine {
 ## TODO
 - [ ] Rivedere la bibliografia, in modo che sia coerente, punti agli articoli corretti. Inserire nel testo i richiami alla bibbliografia.
 - [ ] Inserire dei grafici in asci art che descrive i processi
-- [ ] Creare un'immagine che descriva l'utilizzo sinergico dei vari modelli che costituiscono il BAD
+- [ ] Creare un'immagine che descriva l'utilizzo sinergico dei vari modelli che costituiscono il BAM

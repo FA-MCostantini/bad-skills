@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Generate a single BAD artifact template.
+Generate a single BAM artifact template.
 
 Creates or regenerates a specific documentation file
-from the BAD template library.
+from the BAM template library.
 
 Usage:
     python3 generate_template.py <template_name> <output_path> [project_name]
@@ -20,9 +20,9 @@ import importlib.util
 
 
 def load_bootstrap_templates():
-    """Load templates from bootstrap_bad_project.py."""
+    """Load templates from bootstrap_bam_project.py."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    bootstrap_path = os.path.join(script_dir, "bootstrap_bad_project.py")
+    bootstrap_path = os.path.join(script_dir, "bootstrap_bam_project.py")
 
     spec = importlib.util.spec_from_file_location("bootstrap", bootstrap_path)
     bootstrap = importlib.util.module_from_spec(spec)

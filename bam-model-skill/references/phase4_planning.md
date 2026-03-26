@@ -48,7 +48,7 @@ Per ogni Agente definisci:
 - La sezione "Docs da leggere" elenca i file del blueprint da consultare *prima* di iniziare.
 - La sezione "Files" distingue tra Create e Modify.
 
-**Standard di riferimento**: BAD Appendice A.5
+**Standard di riferimento**: BAM Appendice A.5
 
 ### Step 2: README — `README.md`
 
@@ -68,7 +68,7 @@ Presentazione del progetto come entry point per l'utente finale.
 
 | File | Template | Standard |
 |------|----------|----------|
-| `EXECUTION_PLAN.md` | `templates/execution_plan.md` | BAD A.5 |
+| `EXECUTION_PLAN.md` | `templates/execution_plan.md` | BAM A.5 |
 | `README.md` | — | Standard GitHub |
 
 ---

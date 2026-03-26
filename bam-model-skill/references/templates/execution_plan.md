@@ -1,4 +1,4 @@
-# Template — EXECUTION_PLAN.md (BAD Appendice A.5)
+# Template — EXECUTION_PLAN.md (BAM Appendice A.5)
 
 Definisce la roadmap operativa per gli Agenti AI che eseguono la generazione del codice.
 Suddivide il lavoro in fasi, assegna task a Agenti specifici, stabilisce dipendenze e checkpoint.

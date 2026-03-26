@@ -1,6 +1,6 @@
 ---
 name: coding-standards-skill
-description: Enterprise coding methodology and AI collaboration framework. Governs HOW code is written — critical thinking, decision-making, code quality, naming, security, and interaction protocol. Activates autonomously whenever code is being written or reviewed, regardless of language. Works downstream of bad-model-skill (process/blueprint) and upstream of language-specific skills (go-dev, php82-dev, ts-vue-dev, postgresql16-dev).
+description: Enterprise coding methodology and AI collaboration framework. Governs HOW code is written — critical thinking, decision-making, code quality, naming, security, and interaction protocol. Activates autonomously whenever code is being written or reviewed, regardless of language. Works downstream of bam-model-skill (process/blueprint) and upstream of language-specific skills (go-dev, php82-dev, ts-vue-dev, postgresql16-dev).
 disable-model-invocation: false
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash, Edit, Write
@@ -13,7 +13,7 @@ metadata:
   scope: cross-cutting
   output-format: mixed
   autonomy: true
-  related-skills: bad-model-skill, php82-dev-skill, postgresql16-dev-skill, ts-vue-dev-skill, go-dev-skill, ears-doc-skill
+  related-skills: bam-model-skill, php82-dev-skill, postgresql16-dev-skill, ts-vue-dev-skill, go-dev-skill, ears-doc-skill
 ---
 
 # Project Development Methodology — Coding Standards
@@ -21,7 +21,7 @@ metadata:
 Cross-cutting methodology for production-grade software implementation.
 Defines how AI collaborates with experienced developers during the **coding phase**: critical thinking, code quality, and interaction protocol.
 
-> **Scope**: this skill governs the *implementation phase*. For the upstream process (brainstorming, analysis, design, contracts, planning) see **bad-model-skill**.
+> **Scope**: this skill governs the *implementation phase*. For the upstream process (brainstorming, analysis, design, contracts, planning) see **bam-model-skill**.
 
 ---
 

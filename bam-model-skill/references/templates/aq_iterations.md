@@ -1,4 +1,4 @@
-# Template — AQ_ITERATIONS.md (BAD Appendice A.1)
+# Template — AQ_ITERATIONS.md (BAM Appendice A.1)
 
 Traccia il dialogo iterativo tra umano e AI durante il Brainstorming.
 Ogni domanda-risposta viene registrata per evitare ridondanze nelle sessioni successive.

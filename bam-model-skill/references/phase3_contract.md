@@ -38,7 +38,7 @@ Descrivere sia le interfacce consumate che quelle esposte.
 - I parametri obbligatori devono essere esplicitamente marcati.
 - Campi nascosti (es. `id` non visibili all'utente) documentati con nota esplicita.
 
-**Standard di riferimento**: BAD Appendice A.3
+**Standard di riferimento**: BAM Appendice A.3
 
 ### Step 2: Modellazione del Dominio Dati — `SCHEMA_REFERENCE.md`
 
@@ -55,7 +55,7 @@ Formalizzare la struttura della persistenza usando linguaggi dichiarativi e visu
 - Le note DBML descrivono il significato di business, non il tipo tecnico.
 - Per tabelle con volume > 10k record, indicare volume e strategia di indicizzazione.
 
-**Standard di riferimento**: BAD Appendice A.7 (DBML + Mermaid erDiagram)
+**Standard di riferimento**: BAM Appendice A.7 (DBML + Mermaid erDiagram)
 
 ### Step 3: Riferimento Query — `QUERY_REFERENCE.md`
 
@@ -73,7 +73,7 @@ Raccogliere le operazioni di lettura/scrittura critiche o complesse come Gold St
 - Volume tabelle indicato per orientare scelte di performance.
 - Note performance obbligatorie per tabelle con volume significativo.
 
-**Standard di riferimento**: BAD Appendice A.4
+**Standard di riferimento**: BAM Appendice A.4
 
 ### Step 4: Elenco Globale dei Test — `EXPLAIN_TEST.md`
 
@@ -102,9 +102,9 @@ Questi test servono prima agli Agenti per validare lo sviluppo, poi all'umano pe
 
 | File | Template | Standard |
 |------|----------|----------|
-| `API_SPEC.md` | `templates/api_spec.md` | BAD A.3 |
-| `SCHEMA_REFERENCE.md` | `templates/schema_reference.md` | BAD A.7 (DBML + Mermaid) |
-| `QUERY_REFERENCE.md` | `templates/query_reference.md` | BAD A.4 |
+| `API_SPEC.md` | `templates/api_spec.md` | BAM A.3 |
+| `SCHEMA_REFERENCE.md` | `templates/schema_reference.md` | BAM A.7 (DBML + Mermaid) |
+| `QUERY_REFERENCE.md` | `templates/query_reference.md` | BAM A.4 |
 | `EXPLAIN_TEST.md` | — | BDD |
 
 ---
