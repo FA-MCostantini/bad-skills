@@ -10,15 +10,21 @@
 ## Abstract
 
 Il presente lavoro introduce il paradigma ***Blueprint Agentic Model*** (BAM), un processo metodologico per lo sviluppo software assistito da Agenti di intelligenza artificiale generativa.
-Il paradigma si fonda sul principio che la documentazione tecnica, strutturata secondo standard ingegneristici consolidati, costituisca la **fonte epistemica primaria (*single source of truth*)**
-a partire dalla quale gli Agenti AI generano il codice sorgente in modo autonomo e verificabile.
 
-Il processo si articola in quattro fasi — **Brainstorming**, **Analisi e Design**, **Definizione del Contratto**, **Planning** — ciascuna delle quali produce un insieme di artefatti documentali che fungono da vincoli deterministici.
+```
+Blueprint
+
+    Il blueprint è l'insieme completo e coerente degli **artefatti documentali** prodotti, secondo standard ingegneristici consolidati, prima che venga scritta la prima riga di codice.
+    Costituiscono la **fonte epistemica primaria (*single source of truth*)** a partire dalla quale gli Agenti AI generano il codice sorgente.
+    Il blueprint non si concentra sul **come implementare**, ma **cosa il sistema deve fare e perché**, vincolando il comportamento degli Agenti entro confini deterministici.
+```
+
+Il processo si articola in quattro fasi — **Brainstorming**, **Analisi e Design**, **Definizione del Contratto**, **Planning** — ciascuna delle quali produce un insieme di artefatti documentali.
 La conformità del codice prodotto non è garantita dalla revisione umana (***code review***), bensì dalla validazione tramite ***acceptance test***, ***system test*** e ***integration test*** derivati direttamente dalle specifiche.
 
 Il contributo si colloca nel contesto della letteratura emergente sul ***Vibe Coding*** (A. Karpathy, 2025) e sull'***Agentic Coding***, proponendo una declinazione strutturata e orientata al controllo ingegneristico di tali paradigmi.
 
-**Parole chiave:** ***Behavior-Driven Development, Agenti AI, Spec-Driven Development, Spec-as-Source, Docs-as-Code, Agentic Coding, Vibe Coding, Waterfall, V Model, intellectual debt, Comunicazione Non Violenta, Comunicazione Assertiva***
+**Parole chiave:** ***Behavior-Driven Development, Agenti AI, Spec-Driven Development, Spec-as-Source, Docs-as-Code, Agentic Coding, Vibe Coding, Waterfall, V Model, intellectual debt***
 
 ---
 
@@ -27,17 +33,20 @@ Il contributo si colloca nel contesto della letteratura emergente sul ***Vibe Co
 A differenza del ***V Model*** o del ***Waterfall***, il processo ***BAM*** opera su un paradigma di **Sintesi Comportamentale**:
 il **blueprint** costruito in sinergia con l'AI funge da specifica immutabile per gli Agenti che, in piena autonomia, generano il codice.
 
+In analogia con le redini di un fantino, il processo BAM costituisce le briglie con cui dirigere la potenza dell'AI verso un risultato ingegneristicamente controllato.
+
 Il design segue il solco tracciato dai paradigmi «***Spec-Driven Development***» (SDD) e «***Behavior-Driven Development***»,
 proponendo una loro integrazione in scenari dove il controllo e la verifica dei dettagli implementativi rivestono un'importanza centrale. 
 
-Partendo dal concetto di «*Docs-as-Code*», dove la documentazione vien gestita allo stesso livello del codice (sotto versioning e inserita in pipeline CI/CD) e rappresenta i vincoli architetturali,
-la si elegge a **fonte epistemica degli Agenti AI**; lo scopo ultimo è quello di raggiungere un modello «*Spec-as-Source*» in cui si elimina la necessità di *code review*
-e la garanzia sulla conformità è delegata alla validazione di *acceptance test*, *system test* e *integration test*.
+Il paradigma adotta il principio «**Docs-as-Code**»: la documentazione è gestita allo stesso livello del codice sorgente, sottoposta a versioning e inserita nelle pipeline CI/CD,
+e rappresenta i vincoli architetturali del sistema. In questo contesto essa viene eletta a **fonte epistemica** degli Agenti AI. L'obiettivo è raggiungere un modello «**Spec-as-Source**»
+nel quale la necessità di **code review** è eliminata e la garanzia di conformità è delegata alla validazione tramite **acceptance test**, **system test** e **integration test**.
 
 ---
 
-## 2. Scenario
+## 2. L'approccio BAM
 
+### Scenario
 La scrittura del codice, che fino a oggi è stata di pieno dominio del programmatore, viene ora demandata ad algoritmi di generazione di testo. Questo apre importanti temi:
 
 - la **fiducia** nello strumento e nel codice che esso produce;
@@ -46,18 +55,34 @@ La scrittura del codice, che fino a oggi è stata di pieno dominio del programma
 - il **costo**, sia implementativo che di scalabilità.
 
 Ciò porta alla definizione di un processo operativo chiaro, dettagliato e verificabile per colmare il divario tra l'intelletto umano e la potenza artificiale.
-Come già introdotto da (Sapkota et al., 2025), si tratta di un nuovo **layer semiotico** che trasforma la documentazione nel ***single source of truth***.
+Come già introdotto da (Sapkota et al., 2025), si tratta di un nuovo **layer semiotico** che si frappone tra Umano e Macchina ed elegge la documentazione nel ***single source of truth***.
 
 I concetti su cui si vuole porre l'accento, nel sistema BAM, sono:
 
 - **Comprensione reciproca**; il primo obiettivo da traguardare è la comprensione reciproca dell'attività da svolgere. Non si accetta il primo risultato come definitivo, ma si procede a un affinamento **iterativo**.
 Alcuni degli strumenti che possono essere di supporto in questa fase sono la ***Comunicazione Non Violenta*** o la ***Comunicazione Assertiva***.
-- **Contesto deterministico**: l'AI risponde sempre e non si rifiuta mai di fornire una soluzione a un problema; questo comportamento potrebbe essere fuorviante e pericoloso. 
+
+- **Contesto deterministico**: l'AI tende a produrre sempre una risposta, anche quando non dispone di informazioni sufficienti; questo comportamento potrebbe essere fuorviante e pericoloso. 
 Fornire un contesto limitato, preciso e univoco riduce le **«allucinazioni»** e le risposte arbitrarie. La suddivisione in file tematici orienta l'algoritmo in questa direzione.
+
 - **Tracciabilità del pensiero**: documentare non solo il *cosa*, ma il *perché* di ogni scelta.
 Questo aiuta la focalizzazione degli Agenti nel traguardare gli obiettivi di *business* e nella generazione di scenari di test efficaci.
 
-I modelli classici ***IEEE/ISO***, che prevedono documenti monolitici, pur mantenendo una loro validità concettuale, devono evolvere per accogliere le specificità del contesto attuale.
+### 2.1 Gestione del contesto
+I modelli classici ***IEEE/ISO***, che prevedono documenti _monolitici_, pur mantenendo una loro validità concettuale, devono evolvere per adattarsi alle specificità del contesto Agentico.\
+
+Per mantenere alta l'efficienza e la coerenza tra richiesta e risultato è fondamentale gestire in maniera accurata la **finestra di contesto**.
+Nonostante gli ultimi modelli accettino fino a 1M di token il degrado delle performance si manifesta anche molto prima.\
+I fenomeni principali da tenere sotto controllo sono il **Context Rot** e la **perdita di rilevanza**:
+
+1. il **Context ROT** (Redundancy, Obsolescence, Triviality) si manifesta con un degrado repentino delle prestazioni, dell'accuratezza e della coerenza del risultato.
+2. con **perdita di rilevanza** ci si riferisce a fenomeni come **Lost in the Middle** (Liu et al., 2023 - Stanford/UC Berkeley/Google) e **Attention Dilution** (Roberts et al.) in cui l'Agente, pur avendo un contesto pertinente, si perde nell'operazione di sintesi.
+
+Nel primo caso il problema è generato dalla presenza di informazioni poco pertinenti al raggiungimento del passaggio richiesto: ad esempio se vengono inserite specifiche sull'interazione con il database mentre si sta sviluppando un componente grafico. 
+Il secondo si manifesta quando viene fatta una richiesta troppo ampia che richiede una quantità di dati eccessiva: ad esempio operando con lo stesso Agente per la scrittura di frontend e backend con linguaggi diversi.
+
+**BAM** propone una metodologia di lavoro e una suddivisione della documentazione che aiuti l'orchestratore a progettare un **Team di Agenti AI** ciascuno con compiti **specifici** **atomici** e **contestualizzati** per favorire gli scenari di maggior successo.
+Non si vuole scendere nei dettagli della **geometria** della costruzione di un contesto o in logiche per massimizzare la **densità di significato** ("Context Density"), assumendo che siano punti affrontati a un livello più basso.
 
 ---
 
@@ -261,7 +286,6 @@ Terminata la quale si chiede agli Agenti di
 17. Preston-Werner, T. (2013). *Semantic Versioning 2.0.0*. https://semver.org
 18. Pichler, R. (2010). *Agile Product Management with Scrum: Creating Products that Customers Love*. Addison-Wesley.
 19. DBML — Database Markup Language. *dbml-lang*. https://dbml.dbdiagram.io/docs/
-20. Mermaid. *Mermaid — Diagramming and charting tool*. https://mermaid.js.org/syntax/entityRelationshipDiagram.html
 
 ---
 
@@ -767,6 +791,7 @@ Table ordine {
 
 ## TODO
 
-- [ ] Rivedere la bibliografia, in modo che sia coerente, punti agli articoli corretti. Inserire nel testo i richiami alla bibbliografia.
-- [ ] Inserire dei grafici in asci art che descrive i processi
+- [ ] Rivedere la bibliografia: coerenza, correttezza.
+- [ ] Inserire i riferimenti bibliografici nel testo.
+- [ ] Inserire dei grafici per la descrizione dei processi. Da capire dove e cosa raffigurare.
 - [ ] Creare un'immagine che descriva l'utilizzo sinergico dei vari modelli che costituiscono il BAM
